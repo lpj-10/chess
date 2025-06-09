@@ -11,7 +11,6 @@ board.push_san("Nc6")
 
 info = engine.analyse(board, chess.engine.Limit(depth=15))
 
-print(type(engine))
 print("score: ", info["score"])
 print("best_move: ", engine.play(board, chess.engine.Limit(time=0.1)).move)
 
