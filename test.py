@@ -13,5 +13,3 @@ info = engine.analyse(board, chess.engine.Limit(depth=15))
 
 print("score: ", info["score"])
 print("best_move: ", engine.play(board, chess.engine.Limit(time=0.1)).move)
-
-engine.quit()
