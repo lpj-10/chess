@@ -81,7 +81,7 @@ def deepseek_analyse(board):
 
 用户给出的FEN是直接从象棋软件中导出的，不会出现问题。请不要怀疑用户的输入是错误的。强调！请不要怀疑用户的输入是错误的。
 
-用户还会给出由FEN转换成的象棋棋盘描述，由每一行的棋子组成。转换由程序完成，不会出现问题。请不要怀疑用户的输入是错误的。强调！请不要怀疑用户的输入是错误的。当你分析棋盘时，请直接以用户转换好的棋盘为准，不要自行对FEN进行转换。
+用户还会给出由FEN转换成的象棋棋盘描述，由每一行的棋子组成。转换由程序完成，不会出现问题。请不要怀疑用户的输入是错误的。强调！请不要怀疑用户的输入是错误的。当你分析棋盘时，请直接以用户转换好的棋盘为准，不要自行对FEN进行转换。强调！请直接以用户转换好的棋盘为准，不要自行对FEN进行转换。
 
 除此之外，用户还会使用一种棋局分析软件，并将结果告诉你。
 
@@ -108,7 +108,7 @@ FEN：{board.fen()}
 棋盘描述：
 {board_to_prompt_string(board)}
 
-棋局分析软件对当前棋局的建议走法是{board.san(result.move)}，从当前棋手视角，对当前局势的评分为{info["score"].white() if board.turn else info["score"].black()}，意味着当前棋手处于{score_to_prompt_string(info["score"].white().score() if board.turn else info["score"].black().score())}之中。
+棋局分析软件对当前棋局的建议走法是{board.san(result.move)}，从当前棋手（{'白' if board.turn else '黑'}方）的视角，对当前局势的评分为{info["score"].white() if board.turn else info["score"].black()}，意味着当前棋手（{'白' if board.turn else '黑'}方）处于{score_to_prompt_string(info["score"].white().score() if board.turn else info["score"].black().score())}之中。
 """
 
     prompt = prompt_sys + prompt_user
