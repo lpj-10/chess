@@ -6,6 +6,9 @@ import chess.engine
 url = "http://localhost:11434/api/generate"
 stockfish_path = r"./stockfish/stockfish-windows-x86-64-avx2.exe"
 
+config = None
+with open("config.json", "r") as file:
+    config = json.load(file)
 
 
 
@@ -52,15 +55,15 @@ def board_to_prompt_string(board):
 def stockfish_analyse(board):
     print("Stockfish正在分析...")
 
-    engine = chess.engine.SimpleEngine.popen_uci(stockfish_path)
+    with chess.engine.SimpleEngine.popen_uci(stockfish_path) as engine:
 
-    result = engine.play(board, chess.engine.Limit(depth=20))
+        engine = chess.engine.SimpleEngine.popen_uci(stockfish_path)
 
-    info = engine.analyse(board, chess.engine.Limit(depth=20))
+        result = engine.play(board, chess.engine.Limit(depth=config["depth"]))
+
+        info = engine.analyse(board, chess.engine.Limit(depth=config["depth"]))
 
     print(f"Stockfish认为的最佳走法是{board.san(result.move)}, 以{'白' if board.turn else '黑'}方为视角，当前评分为{info['score'].white() if board.turn else info['score'].black()}")
-
-    engine.quit()
 
     return board.san(result.move), info['score'].white() if board.turn else info['score'].black()
 
@@ -119,7 +122,7 @@ FEN：{board.fen()}
 
     prompt = prompt_sys + prompt_user
 
-    print(prompt)
+    #print(prompt)
 
     payload = {
         "model": "deepseek-r1:14b",
