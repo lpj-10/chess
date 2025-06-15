@@ -1,4 +1,5 @@
 import json
+import subprocess
 import requests
 import chess
 import chess.engine
@@ -137,3 +138,7 @@ FEN：{board.fen()}
             print("请求失败：", response.status_code, response.text)
 
     print("\n")
+
+    command = ["ollama", "stop", "deepseek-r1:14b"]
+
+    subprocess.run(command)
