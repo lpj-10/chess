@@ -1,4 +1,5 @@
 {
   "depth": 20,
-  "level": 10
+  "level": 20,
+  "stockfish_path": "path/to/stockfish/executable.exe"
 }

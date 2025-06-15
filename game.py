@@ -1,29 +1,42 @@
 import chess
+import chess.engine
+from chess.engine import Limit
 
-# def replace_with_dict(text, replacements):
-#     result=''
-#     for c in text:
-#         if(c in replacements):
-#             result = result + replacements[c]
-#         else:
-#             result = result + c
-#     return result
+from AI_analyse import *
+
+def run_command(board, command):
+    if command == "/deepseek":
+        deepseek_analyse(board)
+    elif command == "/fish":
+        stockfish_analyse(board)
 
 
-
-
-def printBoard(board):
+def printBoard(board, flip):
 
     temp = board.unicode(borders=True)
 
+    if flip:
+        temp = temp[::-1]
+
+        lines = temp.splitlines()
+
+        temp = ""
+
+        for line in lines:
+            temp = temp + line[::-1] + "\n"
+
     print(temp)
 
-def user_move(board):
+def player_move(board):
 
     move = None
 
     while True:
         temp = input("玩家操作：")
+
+        if temp.startswith("/"):
+            run_command(board, temp)
+            continue
 
         try:
             move = board.parse_san(temp)
@@ -34,7 +47,28 @@ def user_move(board):
     board.push(move)
 
 def AI_move(board):
+    print("AI正在思考...")
+    with chess.engine.SimpleEngine.popen_uci(stockfish_path) as engin:
+        engin.configure({"Skill Level": config["level"]})
 
+        result = engin.play(board, chess.engine.Limit(depth=config["depth"]))
+
+    move = result.move
+
+    print(f"AI的走法是{board.san(move)}")
+
+    board.push(move)
+
+def winner(board):
+    if board.is_game_over():
+        if board.result() == "1-0":
+            return "WHITE"
+        elif board.result() == "1/2-1/2":
+            return "DRAW"
+        else:
+            return "BLACK"
+    else:
+        return None
 
 
 
@@ -42,8 +76,26 @@ def AI_move(board):
 
 board = chess.Board()
 
-printBoard(board)
+turn = input("选择先手：1.玩家 2.AI\n")
 
-user_move(board)
+flip = turn == "2"
 
-printBoard(board)
+printBoard(board, flip)
+
+if turn == "2":
+    AI_move(board)
+    printBoard(board, flip)
+
+while not board.is_game_over():
+    player_move(board)
+    printBoard(board, flip)
+
+    AI_move(board)
+    printBoard(board, flip)
+
+if board.result() == "1-0":
+    print("白胜！")
+elif board.result() == "0-1":
+    print("黑胜！")
+else:
+    print("平局！")

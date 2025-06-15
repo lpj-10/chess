@@ -3,14 +3,13 @@ import requests
 import chess
 import chess.engine
 
-url = "http://localhost:11434/api/generate"
-stockfish_path = r"./stockfish/stockfish-windows-x86-64-avx2.exe"
 
-config = None
+
 with open("config.json", "r") as file:
     config = json.load(file)
 
-
+url = "http://localhost:11434/api/generate"
+stockfish_path = config["stockfish_path"]
 
 
 piece_dic = {1:"兵", 2:"马", 3:"象", 4:"车", 5:"后", 6:"王"}
@@ -139,3 +138,5 @@ FEN：{board.fen()}
                     print(resp_obj["response"], end="")
         else:
             print("请求失败：", response.status_code, response.text)
+
+    print("\n")
