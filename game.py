@@ -48,7 +48,7 @@ def player_move(board):
 
 def AI_move(board):
     print("AI正在思考...")
-    with chess.engine.SimpleEngine.popen_uci(stockfish_path) as engin:
+    with chess.engine.SimpleEngine.popen_uci(config["stockfish_path"]) as engin:
         engin.configure({"Skill Level": config["level"]})
 
         result = engin.play(board, chess.engine.Limit(depth=config["depth"]))

@@ -9,7 +9,6 @@ with open("config.json", "r") as file:
     config = json.load(file)
 
 url = "http://localhost:11434/api/generate"
-stockfish_path = config["stockfish_path"]
 
 
 piece_dic = {1:"兵", 2:"马", 3:"象", 4:"车", 5:"后", 6:"王"}
@@ -54,9 +53,7 @@ def board_to_prompt_string(board):
 def stockfish_analyse(board):
     print("Stockfish正在分析...")
 
-    with chess.engine.SimpleEngine.popen_uci(stockfish_path) as engine:
-
-        engine = chess.engine.SimpleEngine.popen_uci(stockfish_path)
+    with chess.engine.SimpleEngine.popen_uci(config["stockfish_path"]) as engine:
 
         result = engine.play(board, chess.engine.Limit(depth=config["depth"]))
 
