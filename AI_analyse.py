@@ -135,9 +135,10 @@ FEN：{board.fen()}
                     resp_obj = json.loads(resp_str)
                     print(resp_obj["response"], end="")
         else:
-            print("请求失败：", response.status_code, response.text)
+            print("请求失败，请确定ollama已在后台运行。错误：", response.status_code, response.text)
+            return
 
-    print("\n")
+    print("以上是deepseek的分析\n")
 
     command = ["ollama", "stop", "deepseek-r1:14b"]
 
