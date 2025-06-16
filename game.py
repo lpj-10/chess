@@ -22,13 +22,6 @@ def printBoard(board, flip):
     if flip:
         temp = temp[::-1]
 
-        lines = temp.splitlines()
-
-        temp = ""
-
-        for line in lines:
-            temp = temp + line[::-1] + "\n"
-
     print(temp)
 
 def player_move(board):
@@ -76,17 +69,22 @@ def winner(board):
 
 
 
+FEN = input("请以FEN格式输入导入的棋盘（或留空不导入）：")
 
-
-board = chess.Board()
+if FEN != "":
+    board = chess.Board(FEN)
+else:
+    board = chess.Board()
 
 turn = input("选择先手：1.玩家 2.AI\n")
 
-flip = turn == "2"
+AI_first = turn == "2"
+
+flip = AI_first == board.turn
 
 printBoard(board, flip)
 
-if turn == "2":
+if AI_first:
     AI_move(board)
     printBoard(board, flip)
 

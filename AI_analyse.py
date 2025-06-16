@@ -1,6 +1,6 @@
 import json
 import subprocess
-import requests
+from ollama import chat
 import chess
 import chess.engine
 
@@ -8,8 +8,6 @@ import chess.engine
 
 with open("config.json", "r") as file:
     config = json.load(file)
-
-url = "http://localhost:11434/api/generate"
 
 
 piece_dic = {1:"兵", 2:"马", 3:"象", 4:"车", 5:"后", 6:"王"}
@@ -101,9 +99,6 @@ def deepseek_analyse(board):
 
 请减短思考的时间，同时给出更为丰富和准确的答案。答案请更多的侧重在局势的分析和建议方面。
 
-_____________________________________________________________________________________________________
-
-下面是用户输入的内容：
 """
 
     prompt_user = f"""
@@ -121,22 +116,14 @@ FEN：{board.fen()}
 
     #print(prompt)
 
-    payload = {
-        "model": "deepseek-r1:14b",
-        "prompt": prompt,
-        "stream": True
-    }
+    stream = chat(
+        model="deepseek-r1:14b",
+        messages=[{"role": "system", "content":prompt_sys}, {"role": "user", "content":prompt_user}],
+        stream=True
+    )
 
-    with requests.post(url, json=payload, stream=True) as response:
-        if response.status_code == 200:
-            for line in response.iter_lines():
-                if line:
-                    resp_str = line.decode('utf-8')
-                    resp_obj = json.loads(resp_str)
-                    print(resp_obj["response"], end="")
-        else:
-            print("请求失败，请确定ollama已在后台运行。错误：", response.status_code, response.text)
-            return
+    for chunk in stream:
+        print(chunk['message']['content'], end="", flush=True)
 
     print("\n以上是deepseek的分析。\n")
 

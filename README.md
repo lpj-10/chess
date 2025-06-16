@@ -4,8 +4,9 @@
 
 ## 准备
 
-要使用这个软件，你必须在您的运行环境中安装python-chess  
+要使用这个软件，你必须在你的python运行环境中安装python-chess、ollama  
 指令：`pip install python-chess`  
+`pip install ollama`
 
 你还必须安装stockfish  
 指令：`git clone https://github.com/official-stockfish/Stockfish.git`  
