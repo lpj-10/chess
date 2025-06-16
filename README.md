@@ -10,7 +10,7 @@
 `pip install ollama`
 
 你还必须安装stockfish  
-网址[https://stockfishchess.org/download/](https://stockfishchess.org/download/)
+网址：[https://stockfishchess.org/download/](https://stockfishchess.org/download/)
 
 你还必须安装ollama，并在其中安装至少一个大语言模型   
 网址：[https://www.ollama.com/](https://www.ollama.com/)  
