@@ -5,7 +5,7 @@ from chess.engine import Limit
 from AI_analyse import *
 
 def run_command(board, command):
-    if command == "/llm" or command == "/deepseek":
+    if command == "/llm":
         LLM_analyse(board)
     elif command == "/fish":
         stockfish_analyse(board)
