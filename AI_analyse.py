@@ -65,11 +65,11 @@ def stockfish_analyse(board):
 
 
 
-def deepseek_analyse(board):
+def LLM_analyse(board):
 
     best_move, score = stockfish_analyse(board)
 
-    print("Deepseek正在分析...")
+    print("大语言模型正在分析...")
 
     prompt_sys = f"""
 你是一名专业的国际象棋教练，你的用户正在向你请教，请你为他分析给出的棋盘。
@@ -117,7 +117,7 @@ FEN：{board.fen()}
     #print(prompt)
 
     stream = chat(
-        model="deepseek-r1:14b",
+        model=config["LLM_model"],
         messages=[{"role": "system", "content":prompt_sys}, {"role": "user", "content":prompt_user}],
         stream=True
     )
@@ -125,8 +125,8 @@ FEN：{board.fen()}
     for chunk in stream:
         print(chunk['message']['content'], end="", flush=True)
 
-    print("\n以上是deepseek的分析。\n")
+    print("\n以上是大语言模型的分析。\n")
 
-    command = ["ollama", "stop", "deepseek-r1:14b"]
+    command = ["ollama", "stop", config["LLM_model"]]
 
     subprocess.run(command)

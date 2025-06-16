@@ -1,5 +1,6 @@
 {
   "depth": 20,
   "level": 1,
-  "stockfish_path": "./stockfish/stockfish-windows-x86-64-avx2.exe"
+  "stockfish_path": "./stockfish/stockfish-windows-x86-64-avx2.exe",
+  "LLM_model": "deepseek-r1:14b"
 }
