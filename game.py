@@ -9,6 +9,10 @@ def run_command(board, command):
         deepseek_analyse(board)
     elif command == "/fish":
         stockfish_analyse(board)
+    elif command == "/exit":
+        exit(0)
+    else:
+        print("没有这个指令。")
 
 
 def printBoard(board, flip):

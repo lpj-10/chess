@@ -31,4 +31,5 @@ stockfish_path为指向你的stockfish**可执行文件**的路径
 
 指令：  
 `/fish`使用stockfish来分析棋局  
-`/deepseek`使用deepseek来分析棋局
+`/deepseek`使用deepseek来分析棋局  
+`/exit`退出
