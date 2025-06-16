@@ -33,3 +33,8 @@ stockfish_path为指向你的stockfish**可执行文件**的路径
 `/fish`使用stockfish来分析棋局  
 `/deepseek`使用deepseek来分析棋局  
 `/exit`退出
+
+## 传送门
+
+[github](https://github.com/lpj-10/chess)  
+[uic.coding.net](https://uic.coding.net/p/ai_2025/d/fish_chess/git)
