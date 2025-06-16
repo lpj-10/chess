@@ -22,7 +22,7 @@
 你可以通过config.json更改配置  
 
 depth为stockfish搜索的深度  
-level为stockfish模拟的技能水平，取值为0-20。这个选项只会影响和你对战的stockfish，不会影响帮你分析的stockfish  
+level为stockfish模拟的技能水平，取值为0-20。这个选项只会影响和你对战的stockfish，不会影响你使用`/fish`指令时调用的stockfish  
 stockfish_path为指向你的stockfish**可执行文件**的路径
 
 ## 操作
