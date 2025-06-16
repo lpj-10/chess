@@ -94,6 +94,9 @@ while not board.is_game_over():
     player_move(board)
     printBoard(board, flip)
 
+    if board.is_game_over():
+        break
+
     AI_move(board)
     printBoard(board, flip)
 
